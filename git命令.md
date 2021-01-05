@@ -107,11 +107,35 @@ git fetch 和 git pull
 // 在这个阶段会遇到冲突，手动解决冲突，重新add
 ```
 
-遇到问题解决问题
+###### 遇到问题解决问题
 
 ```
  // 没有pull的情况下直接push了（期间有其他人提交），会报错本地和远程分支有分歧
  // 强制push到origin上游
  git push origin v1.0 -f
+```
+
+###### 回退
+
+```
+// 不想要本地修改了怎么办
+
+// 一、未使用 git add 缓存时
+git checkout -- filepathname   // 不要忘记中间的 “--” ，不写就成了检出分支了！
+// 放弃所有文件修改
+git checkout .
+
+// 二、使用了 git add 缓存了代码
+git reset HEAD filepathname
+// 放弃所有缓存
+git reset HEAD .
+// 相当于撤销 git add 命令所做的工作
+// 在使用本命令后，本地的修改并不会消失，而是回到了如（一）所示的状态
+// 继续用（一）中的操作，就可以放弃本地的修改
+
+// 三、已经用 git commit 提交了代码
+git reset --hard HEAD^   // 回退到上一次commit的状态
+git reset --hard commitid   // 回退到任意版本
+git log   // 查看git的提交历史，查看commitid
 ```
 
