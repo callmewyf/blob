@@ -139,3 +139,26 @@ git reset --hard commitid   // 回退到任意版本
 git log   // 查看git的提交历史，查看commitid
 ```
 
+合并两个分支
+
+```
+// 保证在同一远程库下，保证开发本地库的代码全部提交到远程库，保持最新
+// 在需要执行合并的本地库下
+git pull origin(远程主机) master(远程分支)
+// 返回的信息有需要merge的
+// 先将冲突放入缓存区
+git stash
+// 重新拉取，同时会自动merge没有冲突的部分
+git pull origin(远程主机) master(远程分支)
+// 释放冲突
+git stash pop
+// 去编译器中手动合并冲突
+// 提交修改
+git add . 
+git commit -m"merge"
+git push origin(远程主机) master(远程分支)
+// 此时远程库就是两个合并后的新代码
+// 在开发本地库中拉取
+git pull origin(远程主机) master(远程分支)
+```
+
